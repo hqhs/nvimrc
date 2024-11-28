@@ -87,9 +87,9 @@ require'nvim-treesitter.configs'.setup {
 -- This should be executed before you configure any language server
 local lspconfig_defaults = require('lspconfig').util.default_config
 lspconfig_defaults.capabilities = vim.tbl_deep_extend(
-'force',
-lspconfig_defaults.capabilities,
-require('cmp_nvim_lsp').default_capabilities()
+  'force',
+  lspconfig_defaults.capabilities,
+  require('cmp_nvim_lsp').default_capabilities()
 )
 
 -- This is where you enable features that only work
@@ -119,6 +119,11 @@ require('lspconfig').clangd.setup({})
 require('lspconfig').rust_analyzer.setup({})
 require('lspconfig').gopls.setup({})
 
+-- diagnostics 
+vim.diagnostic.config({
+  signs = false
+})
+
 -- completion 
 local cmp = require('cmp')
 
@@ -140,6 +145,44 @@ cmp.setup({
   }),
 })
 
+-- insert '->' after typing '-' in c/c++
+local Rule = require('nvim-autopairs.rule')
+local npairs = require('nvim-autopairs')
+local cond = require('nvim-autopairs.conds')
+
+npairs.setup({})
+
+-- Add rule for C/C++ arrow operator
+local arrow = Rule("-", ">")
+    :with_pair(cond.not_before_regex("^%s*$")) -- not at line beginning
+    :with_pair(cond.not_inside_quote())        -- not inside quotes
+    :with_pair(function(opts)
+        -- Check if previous char is a letter/number/underscore
+        local before_text = opts.line:sub(1, opts.col - 1)
+        return before_text:match("[%w_]$") ~= nil
+    end)
+    :set_end_pair_length(0)
+    -- :with_move(cond.none())
+    :replace_endpair(function() return '<BS>->' end)
+
+-- Add the rule for specific filetypes
+npairs.add_rule(arrow)
+-- npairs.add_rules({
+--   -- Restrict to C/C++ files
+--   Rule("-", ">"):only_cr():with_pair(cond.none()):with_move(function(opts)
+--     return opts.char == ">"
+--   end):with_del(cond.none()):with_cr(cond.none())
+--   :use_key(">"):replace_map_cr(">")
+-- })
+
+-- Apply only to C/C++ files
+vim.api.nvim_create_autocmd("FileType", {
+    pattern = { "c", "cpp" },
+    callback = function()
+        npairs.add_rule(arrow)
+    end
+})
+
 -- editor config
 vim.opt.tabstop = 2        -- Number of spaces a tab counts for
 vim.opt.shiftwidth = 2     -- Number of spaces for autoindent
@@ -159,6 +202,9 @@ vim.opt.colorcolumn = "80"
 -- Reserve a space in the gutter
 vim.opt.signcolumn = 'no'
 
+-- gui settings
+vim.opt.guifont = { "JetBrains Mono", ":h15" }
+
 vim.g.mapleader = ' ' 
 
 vim.keymap.set("n", "<leader>.", vim.cmd.Ex) -- view directory
@@ -176,11 +222,14 @@ local telescope = require('telescope.builtin')
 
 vim.keymap.set('n', '<leader>,', telescope.buffers, { desc = 'buffers' })
 vim.keymap.set('n', '<leader><leader>', telescope.git_files, { desc = 'project files' })
-
-vim.keymap.set('n', '<leader>ff', telescope.find_files, { desc = 'Telescope find files' })
-vim.keymap.set('n', '<leader>fg', telescope.live_grep, { desc = 'Telescope live grep' })
-vim.keymap.set('n', '<leader>fh', telescope.help_tags, { desc = 'Telescope help tags' })
+vim.keymap.set('n', '<leader>sp', telescope.live_grep, { desc = 'Telescope live grep' })
 vim.keymap.set('n', '<leader>si', telescope.treesitter, {})
+
+vim.keymap.set('n', '<leader>sf', telescope.find_files, { desc = 'Telescope find files' })
+vim.keymap.set('n', '<leader>sh', telescope.help_tags, { desc = 'Telescope help tags' })
+
+local neogit = require('neogit')
+vim.keymap.set('n', '<leader>gg', function() neogit.open() end)
 
 -- projects extension
 -- ## Default mappings (normal mode):

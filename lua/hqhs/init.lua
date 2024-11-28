@@ -74,7 +74,7 @@ return require('packer').startup(function(use)
 	use {
 		'stevearc/overseer.nvim',
 		commit = '6271cab7ccc4ca840faa93f54440ffae3a3918bd',
-		setup = function()
+		config = function()
 			require('overseer').setup({
 				task_list = {
 					direction = "bottom",
@@ -85,6 +85,38 @@ return require('packer').startup(function(use)
 			})
 		end
 	}
+  use {
+    'windwp/nvim-autopairs',
+    config = function()
+      require('nvim-autopairs').setup {}
+    end
+  }
+  use({
+    "kylechui/nvim-surround",
+    tag = "*", -- Use for stability; omit to use `main` branch for the latest features
+    config = function()
+      require("nvim-surround").setup({
+        -- Configuration here, or leave empty to use defaults
+      })
+    end
+  })
+  use {
+    "NeogitOrg/neogit",
+    
+  }
+  use {
+    "NeogitOrg/neogit",
+    requires = {
+      "nvim-lua/plenary.nvim",         -- required
+      "sindrets/diffview.nvim",        -- optional - Diff integration
+
+      -- Only one of these is needed.
+      "nvim-telescope/telescope.nvim", -- optional
+    },
+    config = function() 
+      require('neogit').setup({})
+    end
+  }
 	-- lsp config
 	use({'neovim/nvim-lspconfig'})
 	use({'hrsh7th/nvim-cmp'})

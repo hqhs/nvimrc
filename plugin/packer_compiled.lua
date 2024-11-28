@@ -79,18 +79,23 @@ _G.packer_plugins = {
     path = "/Users/dimaafanasev/.local/share/nvim/site/pack/packer/start/cmp-nvim-lsp",
     url = "https://github.com/hrsh7th/cmp-nvim-lsp"
   },
-  ["compiler.nvim"] = {
-    config = { "\27LJ\2\n:\0\0\3\0\3\0\a6\0\0\0'\2\1\0B\0\2\0029\0\2\0004\2\0\0B\0\2\1K\0\1\0\nsetup\rcompiler\frequire\0" },
-    loaded = true,
-    path = "/Users/dimaafanasev/.local/share/nvim/site/pack/packer/start/compiler.nvim",
-    url = "https://github.com/Zeioth/compiler.nvim"
-  },
   ["doom-one.nvim"] = {
     config = { "\27LJ\2\n8\0\0\3\0\3\0\0056\0\0\0009\0\1\0'\2\2\0B\0\2\1K\0\1\0\25colorscheme doom-one\bcmd\bvim\0" },
     loaded = true,
     needs_bufread = false,
     path = "/Users/dimaafanasev/.local/share/nvim/site/pack/packer/opt/doom-one.nvim",
     url = "https://github.com/NTBBloodbath/doom-one.nvim"
+  },
+  neogit = {
+    loaded = true,
+    path = "/Users/dimaafanasev/.local/share/nvim/site/pack/packer/start/neogit",
+    url = "https://github.com/NeogitOrg/neogit"
+  },
+  ["nvim-autopairs"] = {
+    config = { "\27LJ\2\n@\0\0\3\0\3\0\a6\0\0\0'\2\1\0B\0\2\0029\0\2\0004\2\0\0B\0\2\1K\0\1\0\nsetup\19nvim-autopairs\frequire\0" },
+    loaded = true,
+    path = "/Users/dimaafanasev/.local/share/nvim/site/pack/packer/start/nvim-autopairs",
+    url = "https://github.com/windwp/nvim-autopairs"
   },
   ["nvim-cmp"] = {
     loaded = true,
@@ -102,13 +107,19 @@ _G.packer_plugins = {
     path = "/Users/dimaafanasev/.local/share/nvim/site/pack/packer/start/nvim-lspconfig",
     url = "https://github.com/neovim/nvim-lspconfig"
   },
+  ["nvim-surround"] = {
+    config = { "\27LJ\2\n?\0\0\3\0\3\0\a6\0\0\0'\2\1\0B\0\2\0029\0\2\0004\2\0\0B\0\2\1K\0\1\0\nsetup\18nvim-surround\frequire\0" },
+    loaded = true,
+    path = "/Users/dimaafanasev/.local/share/nvim/site/pack/packer/start/nvim-surround",
+    url = "https://github.com/kylechui/nvim-surround"
+  },
   ["nvim-treesitter"] = {
     loaded = true,
     path = "/Users/dimaafanasev/.local/share/nvim/site/pack/packer/start/nvim-treesitter",
     url = "https://github.com/nvim-treesitter/nvim-treesitter"
   },
   ["overseer.nvim"] = {
-    config = { "\27LJ\2\n™\1\0\0\4\0\6\0\t6\0\0\0'\2\1\0B\0\2\0029\0\2\0005\2\4\0005\3\3\0=\3\5\2B\0\2\1K\0\1\0\14task_list\1\0\1\14task_list\0\1\0\4\19default_detail\3\1\14direction\vbottom\15max_height\3\25\15min_height\3\25\nsetup\roverseer\frequire\0" },
+    config = { "\27LJ\2\n™\1\0\0\4\0\6\0\t6\0\0\0'\2\1\0B\0\2\0029\0\2\0005\2\4\0005\3\3\0=\3\5\2B\0\2\1K\0\1\0\14task_list\1\0\1\14task_list\0\1\0\4\14direction\vbottom\15max_height\3\25\15min_height\3\25\19default_detail\3\1\nsetup\roverseer\frequire\0" },
     loaded = true,
     path = "/Users/dimaafanasev/.local/share/nvim/site/pack/packer/start/overseer.nvim",
     url = "https://github.com/stevearc/overseer.nvim"
@@ -143,13 +154,17 @@ time([[Setup for doom-one.nvim]], false)
 time([[packadd for doom-one.nvim]], true)
 vim.cmd [[packadd doom-one.nvim]]
 time([[packadd for doom-one.nvim]], false)
--- Config for: compiler.nvim
-time([[Config for compiler.nvim]], true)
-try_loadstring("\27LJ\2\n:\0\0\3\0\3\0\a6\0\0\0'\2\1\0B\0\2\0029\0\2\0004\2\0\0B\0\2\1K\0\1\0\nsetup\rcompiler\frequire\0", "config", "compiler.nvim")
-time([[Config for compiler.nvim]], false)
+-- Config for: nvim-surround
+time([[Config for nvim-surround]], true)
+try_loadstring("\27LJ\2\n?\0\0\3\0\3\0\a6\0\0\0'\2\1\0B\0\2\0029\0\2\0004\2\0\0B\0\2\1K\0\1\0\nsetup\18nvim-surround\frequire\0", "config", "nvim-surround")
+time([[Config for nvim-surround]], false)
+-- Config for: nvim-autopairs
+time([[Config for nvim-autopairs]], true)
+try_loadstring("\27LJ\2\n@\0\0\3\0\3\0\a6\0\0\0'\2\1\0B\0\2\0029\0\2\0004\2\0\0B\0\2\1K\0\1\0\nsetup\19nvim-autopairs\frequire\0", "config", "nvim-autopairs")
+time([[Config for nvim-autopairs]], false)
 -- Config for: overseer.nvim
 time([[Config for overseer.nvim]], true)
-try_loadstring("\27LJ\2\n™\1\0\0\4\0\6\0\t6\0\0\0'\2\1\0B\0\2\0029\0\2\0005\2\4\0005\3\3\0=\3\5\2B\0\2\1K\0\1\0\14task_list\1\0\1\14task_list\0\1\0\4\19default_detail\3\1\14direction\vbottom\15max_height\3\25\15min_height\3\25\nsetup\roverseer\frequire\0", "config", "overseer.nvim")
+try_loadstring("\27LJ\2\n™\1\0\0\4\0\6\0\t6\0\0\0'\2\1\0B\0\2\0029\0\2\0005\2\4\0005\3\3\0=\3\5\2B\0\2\1K\0\1\0\14task_list\1\0\1\14task_list\0\1\0\4\14direction\vbottom\15max_height\3\25\15min_height\3\25\19default_detail\3\1\nsetup\roverseer\frequire\0", "config", "overseer.nvim")
 time([[Config for overseer.nvim]], false)
 -- Config for: doom-one.nvim
 time([[Config for doom-one.nvim]], true)
