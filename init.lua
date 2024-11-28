@@ -242,22 +242,25 @@ vim.opt.swapfile = false
 vim.opt.backup = false
 
 vim.opt.colorcolumn = "80"
-
--- Reserve a space in the gutter
 vim.opt.signcolumn = 'no'
 
--- gui settings
+-- font
 vim.opt.guifont = { "JetBrains Mono", ":h15" }
 
+-- keybindings
 vim.g.mapleader = ' ' 
 
-vim.keymap.set("n", "<leader>.", vim.cmd.Ex) -- view directory
+-- system copy paste buffer integration
 vim.keymap.set('n', '<D-v>', '"+p', { noremap = true })
 
--- Swap Ctrl-G and Ctrl-C for normal, insert, and visual modes
--- Sorry, I'm from Emacs world
+-- emacs 
+vim.keymap.set('i', '<C-a>', '<ESC>I', { noremap = true, desc = 'Jump to beginning of line' })
+vim.keymap.set('i', '<C-e>', '<ESC>A', { noremap = true, desc = 'Jump to end of line' })
 vim.keymap.set({'n', 'i', 'v'}, '<C-G>', '<C-C>', { noremap = true })
 vim.keymap.set({'n', 'i', 'v'}, '<C-C>', '<C-G>', { noremap = true })
+
+-- leader
+vim.keymap.set("n", "<leader>.", vim.cmd.Ex) -- view directory
 
 -- telescope -- fuzzy search
 require('telescope').load_extension('project')
@@ -272,6 +275,7 @@ vim.keymap.set('n', '<leader>si', telescope.treesitter, {})
 vim.keymap.set('n', '<leader>sf', telescope.find_files, { desc = 'Telescope find files' })
 vim.keymap.set('n', '<leader>sh', telescope.help_tags, { desc = 'Telescope help tags' })
 
+-- git integration (aka magit)
 local neogit = require('neogit')
 vim.keymap.set('n', '<leader>gg', function() neogit.open() end)
 
