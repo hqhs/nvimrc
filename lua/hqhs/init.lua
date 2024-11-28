@@ -72,22 +72,9 @@ return require('packer').startup(function(use)
 		end,
 	})
 	use {
-		'Zeioth/compiler.nvim',
-		cmd = {'CompilerOpen', 'CompilerToggleResults', 'CompilerRedo'},
-		requires = {
-			'stevearc/overseer.nvim',
-			'nvim-telescope/telescope.nvim'
-		},
-		config = function()
-			require('compiler').setup({})
-		end
-	}
-
-	use {
 		'stevearc/overseer.nvim',
 		commit = '6271cab7ccc4ca840faa93f54440ffae3a3918bd',
-		cmd = {'CompilerOpen', 'CompilerToggleResults', 'CompilerRedo'},
-		config = function()
+		setup = function()
 			require('overseer').setup({
 				task_list = {
 					direction = "bottom",

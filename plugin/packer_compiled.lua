@@ -80,12 +80,9 @@ _G.packer_plugins = {
     url = "https://github.com/hrsh7th/cmp-nvim-lsp"
   },
   ["compiler.nvim"] = {
-    commands = { "CompilerOpen", "CompilerToggleResults", "CompilerRedo" },
     config = { "\27LJ\2\n:\0\0\3\0\3\0\a6\0\0\0'\2\1\0B\0\2\0029\0\2\0004\2\0\0B\0\2\1K\0\1\0\nsetup\rcompiler\frequire\0" },
-    loaded = false,
-    needs_bufread = false,
-    only_cond = false,
-    path = "/Users/dimaafanasev/.local/share/nvim/site/pack/packer/opt/compiler.nvim",
+    loaded = true,
+    path = "/Users/dimaafanasev/.local/share/nvim/site/pack/packer/start/compiler.nvim",
     url = "https://github.com/Zeioth/compiler.nvim"
   },
   ["doom-one.nvim"] = {
@@ -111,12 +108,9 @@ _G.packer_plugins = {
     url = "https://github.com/nvim-treesitter/nvim-treesitter"
   },
   ["overseer.nvim"] = {
-    commands = { "CompilerOpen", "CompilerToggleResults", "CompilerRedo" },
-    config = { "\27LJ\2\n™\1\0\0\4\0\6\0\t6\0\0\0'\2\1\0B\0\2\0029\0\2\0005\2\4\0005\3\3\0=\3\5\2B\0\2\1K\0\1\0\14task_list\1\0\1\14task_list\0\1\0\4\19default_detail\3\1\15min_height\3\25\14direction\vbottom\15max_height\3\25\nsetup\roverseer\frequire\0" },
-    loaded = false,
-    needs_bufread = false,
-    only_cond = false,
-    path = "/Users/dimaafanasev/.local/share/nvim/site/pack/packer/opt/overseer.nvim",
+    config = { "\27LJ\2\n™\1\0\0\4\0\6\0\t6\0\0\0'\2\1\0B\0\2\0029\0\2\0005\2\4\0005\3\3\0=\3\5\2B\0\2\1K\0\1\0\14task_list\1\0\1\14task_list\0\1\0\4\19default_detail\3\1\14direction\vbottom\15max_height\3\25\15min_height\3\25\nsetup\roverseer\frequire\0" },
+    loaded = true,
+    path = "/Users/dimaafanasev/.local/share/nvim/site/pack/packer/start/overseer.nvim",
     url = "https://github.com/stevearc/overseer.nvim"
   },
   ["packer.nvim"] = {
@@ -149,36 +143,18 @@ time([[Setup for doom-one.nvim]], false)
 time([[packadd for doom-one.nvim]], true)
 vim.cmd [[packadd doom-one.nvim]]
 time([[packadd for doom-one.nvim]], false)
+-- Config for: compiler.nvim
+time([[Config for compiler.nvim]], true)
+try_loadstring("\27LJ\2\n:\0\0\3\0\3\0\a6\0\0\0'\2\1\0B\0\2\0029\0\2\0004\2\0\0B\0\2\1K\0\1\0\nsetup\rcompiler\frequire\0", "config", "compiler.nvim")
+time([[Config for compiler.nvim]], false)
+-- Config for: overseer.nvim
+time([[Config for overseer.nvim]], true)
+try_loadstring("\27LJ\2\n™\1\0\0\4\0\6\0\t6\0\0\0'\2\1\0B\0\2\0029\0\2\0005\2\4\0005\3\3\0=\3\5\2B\0\2\1K\0\1\0\14task_list\1\0\1\14task_list\0\1\0\4\19default_detail\3\1\14direction\vbottom\15max_height\3\25\15min_height\3\25\nsetup\roverseer\frequire\0", "config", "overseer.nvim")
+time([[Config for overseer.nvim]], false)
 -- Config for: doom-one.nvim
 time([[Config for doom-one.nvim]], true)
 try_loadstring("\27LJ\2\n8\0\0\3\0\3\0\0056\0\0\0009\0\1\0'\2\2\0B\0\2\1K\0\1\0\25colorscheme doom-one\bcmd\bvim\0", "config", "doom-one.nvim")
 time([[Config for doom-one.nvim]], false)
-
--- Command lazy-loads
-time([[Defining lazy-load commands]], true)
-pcall(vim.api.nvim_create_user_command, 'CompilerOpen', function(cmdargs)
-          require('packer.load')({'compiler.nvim', 'overseer.nvim'}, { cmd = 'CompilerOpen', l1 = cmdargs.line1, l2 = cmdargs.line2, bang = cmdargs.bang, args = cmdargs.args, mods = cmdargs.mods }, _G.packer_plugins)
-        end,
-        {nargs = '*', range = true, bang = true, complete = function()
-          require('packer.load')({'compiler.nvim', 'overseer.nvim'}, {}, _G.packer_plugins)
-          return vim.fn.getcompletion('CompilerOpen ', 'cmdline')
-      end})
-pcall(vim.api.nvim_create_user_command, 'CompilerToggleResults', function(cmdargs)
-          require('packer.load')({'compiler.nvim', 'overseer.nvim'}, { cmd = 'CompilerToggleResults', l1 = cmdargs.line1, l2 = cmdargs.line2, bang = cmdargs.bang, args = cmdargs.args, mods = cmdargs.mods }, _G.packer_plugins)
-        end,
-        {nargs = '*', range = true, bang = true, complete = function()
-          require('packer.load')({'compiler.nvim', 'overseer.nvim'}, {}, _G.packer_plugins)
-          return vim.fn.getcompletion('CompilerToggleResults ', 'cmdline')
-      end})
-pcall(vim.api.nvim_create_user_command, 'CompilerRedo', function(cmdargs)
-          require('packer.load')({'compiler.nvim', 'overseer.nvim'}, { cmd = 'CompilerRedo', l1 = cmdargs.line1, l2 = cmdargs.line2, bang = cmdargs.bang, args = cmdargs.args, mods = cmdargs.mods }, _G.packer_plugins)
-        end,
-        {nargs = '*', range = true, bang = true, complete = function()
-          require('packer.load')({'compiler.nvim', 'overseer.nvim'}, {}, _G.packer_plugins)
-          return vim.fn.getcompletion('CompilerRedo ', 'cmdline')
-      end})
-time([[Defining lazy-load commands]], false)
-
 
 _G._packer.inside_compile = false
 if _G._packer.needs_bufread == true then

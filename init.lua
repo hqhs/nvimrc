@@ -25,12 +25,20 @@ require("hqhs")
 --   end
 -- })
 ---ENDWORKAROUND
+vim.filetype.add({
+    extension = {
+        vert = "glsl",
+        frag = "glsl",
+        comp = "glsl"
+    }
+})
 
 require'nvim-treesitter.configs'.setup {
 	-- A list of parser names, or "all" (the listed parsers MUST always be installed)
 	ensure_installed = {
 		"c",
 		"lua", "vim", "vimdoc", "query",
+		"glsl",
 		"markdown", "markdown_inline",
 		"javascript", "typescript",
 	},
@@ -40,7 +48,7 @@ require'nvim-treesitter.configs'.setup {
 
 	-- Automatically install missing parsers when entering buffer
 	-- Recommendation: set to false if you don't have `tree-sitter` CLI installed locally
-	auto_install = true,
+	auto_install = false,
 
 	---- If you need to change the installation directory of the parsers (see -> Advanced Setup)
 	-- parser_install_dir = "/some/path/to/store/parsers", -- Remember to run vim.opt.runtimepath:append("/some/path/to/store/parsers")!
@@ -55,7 +63,7 @@ require'nvim-treesitter.configs'.setup {
 		-- disable = { "c", "rust" },
 		-- Or use a function for more flexibility, e.g. to disable slow treesitter highlight for large files
 		disable = function(lang, buf)
-			local max_filesize = 1024 * 1024 -- 100 KB
+			local max_filesize = 1024 * 1024 -- 1 MB
 			local ok, stats = pcall(vim.loop.fs_stat, vim.api.nvim_buf_get_name(buf))
 			if ok and stats and stats.size > max_filesize then
 				return true
@@ -127,8 +135,14 @@ cmp.setup({
 })
 
 -- editor config
+vim.opt.tabstop = 2        -- Number of spaces a tab counts for
+vim.opt.shiftwidth = 2     -- Number of spaces for autoindent
+vim.opt.softtabstop = 2    -- Number of spaces a tab counts for while editing
+vim.opt.expandtab = true   -- Convert tabs to spaces
+
 vim.opt.nu = false 
 vim.opt.relativenumber = true
+vim.opt.numberwidth = 2
 
 vim.opt.smartindent = true
 vim.opt.swapfile = false
@@ -194,8 +208,5 @@ vim.keymap.set('n', '<leader>si', telescope.treesitter, {})
 vim.keymap.set('n', '<leader>pp', function() require'telescope'.extensions.project.project{} end)
 
 -- compilation
-local compiler = require('compiler')
-vim.keymap.set('n', '<leader>cc', '<cmd>CompilerOpen<cr>', { noremap = true, silent = true })
-
-
-
+-- local compiler = require('compiler')
+vim.keymap.set('n', '<leader>cc', '<cmd>OverseerToggle<cr>', { noremap = true, silent = true })
