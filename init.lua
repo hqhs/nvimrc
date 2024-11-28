@@ -119,9 +119,13 @@ require('lspconfig').clangd.setup({})
 require('lspconfig').rust_analyzer.setup({})
 require('lspconfig').gopls.setup({})
 
+-- completion 
 local cmp = require('cmp')
 
 cmp.setup({
+  completion = {
+    autocomplete = false
+  },
 	sources = {
 		{name = 'nvim_lsp'},
 	},
@@ -131,7 +135,9 @@ cmp.setup({
 			vim.snippet.expand(args.body)
 		end,
 	},
-	mapping = cmp.mapping.preset.insert({}),
+	mapping = cmp.mapping.preset.insert({
+    ['<C-Space>'] = cmp.mapping.complete(),
+  }),
 })
 
 -- editor config
@@ -151,7 +157,7 @@ vim.opt.backup = false
 vim.opt.colorcolumn = "80"
 
 -- Reserve a space in the gutter
-vim.opt.signcolumn = 'yes'
+vim.opt.signcolumn = 'no'
 
 vim.g.mapleader = ' ' 
 
