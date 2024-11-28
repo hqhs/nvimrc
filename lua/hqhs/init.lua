@@ -101,8 +101,8 @@ return require('packer').startup(function(use)
     end
   })
   use {
-    "NeogitOrg/neogit",
-    
+    'nvim-lualine/lualine.nvim',
+    requires = { 'nvim-tree/nvim-web-devicons', opt = true }
   }
   use {
     "NeogitOrg/neogit",
