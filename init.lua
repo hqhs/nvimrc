@@ -164,6 +164,12 @@ local arrow = Rule("-", ">")
     :with_pair(cond.not_before_regex("^%s*$")) -- not at line beginning
     :with_pair(cond.not_inside_quote())        -- not inside quotes
     :with_pair(function(opts)
+        -- First check if we're in a C/C++ file
+        local ft = vim.bo.filetype
+        if ft ~= 'c' and ft ~= 'cpp' then
+            return false
+        end
+
         -- Check if previous char is a letter/number/underscore
         local before_text = opts.line:sub(1, opts.col - 1)
         return before_text:match("[%w_]$") ~= nil

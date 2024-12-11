@@ -146,6 +146,15 @@ return require('packer').startup(function(use)
     requires = { 'nvim-tree/nvim-web-devicons', opt = true }
   }
   use {
+    "sindrets/diffview.nvim",
+
+    config = function() 
+      require('diffview').setup({
+        use_icons = false,
+      })
+    end
+  }
+  use {
     "NeogitOrg/neogit",
     requires = {
       "nvim-lua/plenary.nvim",         -- required
@@ -158,7 +167,7 @@ return require('packer').startup(function(use)
       require('neogit').setup({})
     end
   }
-	-- lsp config
+	-- lsp config, from lsp-zero
 	use({'neovim/nvim-lspconfig'})
 	use({'hrsh7th/nvim-cmp'})
 	use({'hrsh7th/cmp-nvim-lsp'})
