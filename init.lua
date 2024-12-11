@@ -4,8 +4,12 @@
 require("hqhs")
 
 -- commands
+-- format 
+-- :%!clang-format
 -- change to directory of current file
 -- :cd %:h
+-- kill buffer
+-- :bd or :bdelete
 
 -- packer -- package manager
 -- :PackerStatus
@@ -106,9 +110,12 @@ vim.api.nvim_create_autocmd('LspAttach', {
 		vim.keymap.set('n', 'go', '<cmd>lua vim.lsp.buf.type_definition()<cr>', opts)
 		vim.keymap.set('n', 'gr', '<cmd>lua vim.lsp.buf.references()<cr>', opts)
 		vim.keymap.set('n', 'gs', '<cmd>lua vim.lsp.buf.signature_help()<cr>', opts)
-		vim.keymap.set('n', '<F2>', '<cmd>lua vim.lsp.buf.rename()<cr>', opts)
-		vim.keymap.set({'n', 'x'}, '<F3>', '<cmd>lua vim.lsp.buf.format({async = true})<cr>', opts)
-		vim.keymap.set('n', '<F4>', '<cmd>lua vim.lsp.buf.code_action()<cr>', opts)
+    -- code rename
+		vim.keymap.set('n', '<leader>cr', '<cmd>lua vim.lsp.buf.rename()<cr>', opts)
+    -- code format
+		vim.keymap.set({'n', 'x'}, '<leader>cf', '<cmd>lua vim.lsp.buf.format({async = true})<cr>', opts)
+    -- code action
+		vim.keymap.set('n', '<leader>ca', '<cmd>lua vim.lsp.buf.code_action()<cr>', opts)
 	end,
 })
 
@@ -263,7 +270,7 @@ vim.keymap.set({'n', 'i', 'v'}, '<C-C>', '<C-G>', { noremap = true })
 vim.keymap.set("n", "<leader>.", vim.cmd.Ex) -- view directory
 
 -- telescope -- fuzzy search
-require('telescope').load_extension('project')
+require('telescope').load_extension('projects')
 
 local telescope = require('telescope.builtin')
 
@@ -308,8 +315,9 @@ vim.keymap.set('n', '<leader>gg', function() neogit.open() end)
 -- | `<c-f>` | find a file within your project (same as \<CR\>)              |
 -- | `<c-o>` | change current cd scope                                       |
 
-vim.keymap.set('n', '<leader>pp', function() require'telescope'.extensions.project.project{} end)
+vim.keymap.set('n', '<leader>pp', function() require'telescope'.extensions.projects.projects{} end)
 
 -- compilation
 -- local compiler = require('compiler')
 vim.keymap.set('n', '<leader>cc', '<cmd>OverseerToggle<cr>', { noremap = true, silent = true })
+
