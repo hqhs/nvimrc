@@ -167,10 +167,85 @@ return require('packer').startup(function(use)
       require('neogit').setup({})
     end
   }
+  use({
+    -- snippet engine
+    'L3MON4D3/LuaSnip',
+    -- follow latest release.
+    tag = "v2.*", -- Replace <CurrentMajor> by the latest released major (first number of latest release)
+    -- install jsregexp (optional!:).
+    -- run = "make install_jsregexp"
+  })
 	-- lsp config, from lsp-zero
 	use({'neovim/nvim-lspconfig'})
-	use({'hrsh7th/nvim-cmp'})
 	use({'hrsh7th/cmp-nvim-lsp'})
+  use {
+    -- this package integrates nvim-cmp with LuaSnip
+    'saadparwaiz1/cmp_luasnip'
+  } 
+  use {
+    -- completion engine plugin
+    'hrsh7th/nvim-cmp',
+    requires = {
+      'saadparwaiz1/cmp_luasnip', -- luasnip -> cmp
+      'L3MON4D3/LuaSnip', -- snippet engine
+    },
+    config = function ()
+      local cmp = require'cmp'
+      local luasnip = require'luasnip'
+
+      cmp.setup({
+        completion = {
+          autocomplete = false
+        },
+        sources = cmp.config.sources({
+          {name = 'nvim_lsp'},
+          {name = 'luasnip'},
+          {name = 'buffer'},
+        }),
+        snippet = {
+          expand = function(args)
+            -- You need Neovim v0.10 to use vim.snippet
+            -- vim.snippet.expand(args.body)
+            require'luasnip'.lsp_expand(args.body)
+          end,
+        },
+        mapping = {
+          ['<C-Space>'] = cmp.mapping.complete(),
+          ['<CR>'] = cmp.mapping(function(fallback)
+            if cmp.visible() then
+              if luasnip.expandable() then
+                luasnip.expand()
+              else
+                cmp.confirm({
+                  select = true,
+                })
+              end
+            else
+              fallback()
+            end
+          end),
+          ["<Tab>"] = cmp.mapping(function(fallback)
+            if cmp.visible() then
+              cmp.select_next_item()
+            elseif luasnip.locally_jumpable(1) then
+              luasnip.jump(1)
+            else
+              fallback()
+            end
+          end, { "i", "s" }),
+          ["<S-Tab>"] = cmp.mapping(function(fallback)
+            if cmp.visible() then
+              cmp.select_prev_item()
+            elseif luasnip.locally_jumpable(-1) then
+              luasnip.jump(-1)
+            else
+              fallback()
+            end
+          end, { "i", "s" }),
+        },
+      })
+    end
+  }
 	-- Automatically set up your configuration after cloning packer.nvim
 	-- Put this at the end after all plugins
 	if packer_bootstrap then
