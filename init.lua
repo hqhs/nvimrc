@@ -234,6 +234,11 @@ vim.opt.smartindent = true
 vim.opt.swapfile = false
 vim.opt.backup = false
 
+-- Set case insensitive search
+vim.opt.ignorecase = true
+-- Make search case sensitive when using capital letters
+vim.opt.smartcase = true
+
 vim.opt.colorcolumn = "80"
 vim.opt.signcolumn = 'no'
 
@@ -244,6 +249,8 @@ vim.opt.guifont = { "JetBrains Mono", ":h15" }
 vim.g.mapleader = ' ' 
 
 -- system copy paste buffer integration
+-- "+p is paste
+-- "+y is copy
 vim.keymap.set('n', '<D-v>', '"+p', { noremap = true })
 
 -- emacs 
